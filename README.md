@@ -1,89 +1,71 @@
-AIN Neighborhood Change Checker
+# AIN Neighborhood Change Checker
 
-Overview
+## Overview
 
 The AIN Neighborhood Change Checker is a tool designed to process and analyze neighborhood change data based on Assessor's Identification Numbers (AINs) or Federal Information Processing Standards (FIPS) codes. It integrates multiple datasets and APIs to fetch relevant geographic and socioeconomic data efficiently.
 
-Code Architecture
+# Code Architecture
 
-Tech Stack
+## Tech Stack
 
-Frontend: Next.js (React) with server-side rendering (SSR)
+- Frontend: Next.js (React) with server-side rendering (SSR)
 
-Backend: Next.js API Routes for fetching GeoJSON
+- Backend: Next.js API Routes for fetching GeoJSON
 
-Caching: In-memory storage for optimized GeoJSON retrieval
+- Caching: In-memory storage for optimized GeoJSON retrieval (Was fetching in the server-side but there were errors with deployment so had to deploy as client side)
 
-APIs Used:
+## APIs Used:
 
-FCC Census Block API for converting lat/lon to FIPS
+- FCC Census Block API for converting lat/lon to FIPS
 
-LACounty Open Data for AIN to lat/lon mapping
+- LACounty Open Data for AIN to lat/lon mapping
 
-GeoJSON from the Othering & Belonging Institute for neighborhood change data
+- GeoJSON from the Othering & Belonging Institute for neighborhood change data
 
-Data Flow
+# Data Flow
 
-User Input
+## User Input
 
-Accepts comma-separated AINs or FIPS codes from a form.
+- Accepts comma-separated AINs or FIPS codes from a form.
 
-AIN Processing
+## AIN Processing
 
-Queries preprocessed AIN data to get latitude and longitude (proof of concept uses a locally processed CSV subset).
+- Queries preprocessed AIN data to get latitude and longitude (proof of concept uses a locally processed CSV subset).
 
-Future improvement: Direct integration with ArcGIS API to avoid local CSV processing.
+- Future improvement: Direct integration with ArcGIS API to avoid local CSV processing.
 
-FIPS Lookup
+## FIPS Lookup
 
-Calls FCC Census Block API to fetch FIPS codes using latitude and longitude.
+- Calls FCC Census Block API to fetch FIPS codes using latitude and longitude.
 
-Neighborhood Data Retrieval
+## Neighborhood Data Retrieval
 
-Uses FIPS codes to search a cached GeoJSON dataset for neighborhood change indicators.
+- Uses FIPS codes to search a cached GeoJSON dataset for neighborhood change indicators.
 
-Rendering Results
+## Rendering Results
 
-Displays the retrieved neighborhood change data in a formatted JSON output.
+- Displays the retrieved neighborhood change data in a formatted JSON output.
 
-Performance Considerations
 
-Server-Side Rendering (SSR):
 
-GeoJSON data is fetched server-side to improve performance.
+# Limitations & Future Work
 
-Caching:
+## Current Constraints
 
-GeoJSON dataset is cached in memory to reduce API calls and improve load time.
+## AIN Data Processing:
 
-Optimized Queries:
+- Currently using a manually downloaded 3,000-row CSV subset from LACounty Open Data.
 
-Future improvements include using ArcGIS API for live AIN lookups instead of CSV processing.
+- Full dataset is 9 million rows, making local processing inefficient.
 
-Limitations & Future Work
+- Future approach: Direct API queries instead of local CSV processing.
 
-Current Constraints
+## API Integration:
 
-AIN Data Processing:
+- ArcGIS API is not yet integrated due to time constraints.
 
-Currently using a manually downloaded 3,000-row CSV subset from LACounty Open Data.
+- Future work: Fully integrate ArcGIS API for live AIN queries.
 
-Full dataset is 9 million rows, making local processing inefficient.
+## Server-side rendering deployment
 
-Future approach: Direct API queries instead of local CSV processing.
-
-API Integration:
-
-ArcGIS API is not yet integrated due to time constraints.
-
-Future work: Fully integrate ArcGIS API for live AIN queries.
-
-Planned Enhancements
-
-Replace CSV with ArcGIS API queries to dynamically fetch AIN data.
-
-Optimize caching mechanisms for better performance.
-
-Enhance UI/UX for a better visualization of neighborhood change data.
-
-Database integration to allow for structured queries and historical comparisons.
+- Figure out how to deploy while doing server side fetching
