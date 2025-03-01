@@ -18,7 +18,7 @@ export default function Home() {  // ✅ Remove async
       <h1 className="text-2xl font-bold mb-6">AIN Neighborhood Change Checker</h1>
 
       {/* Pass data to Client Component */}
-      <InteractiveClient />
+      <InteractiveClient geoJSON={data} />
     </main>
   );
 }
