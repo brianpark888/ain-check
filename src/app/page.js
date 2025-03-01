@@ -1,10 +1,17 @@
+'use client';
+
 import InteractiveClient from "@/components/InteractiveClient";
+import { useState, useEffect } from "react";
 
-export default async function Home() {
-  // // Fetch GeoJSON on the server (Runs only on the server)
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/fetch-geojson`);
+export default function Home() {  // ✅ Remove async
+  const [data, setData] = useState(null);
 
-  // const geoJSON = await response.json();
+  useEffect(() => {
+    fetch('/api/fetch-geojson')
+      .then(res => res.json())
+      .then(setData)
+      .catch(error => console.error("API error:", error));
+  }, []);
 
   return (
     <main className="container mx-auto p-4 max-w-4xl">
