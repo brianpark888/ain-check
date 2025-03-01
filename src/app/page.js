@@ -2,7 +2,7 @@ import InteractiveClient from "@/components/InteractiveClient";
 
 export default async function Home() {
   // Fetch GeoJSON on the server (Runs only on the server)
-  const response = await fetch(`http://localhost:3001/api/fetch-geojson`);
+  const response = await fetch(`/api/fetch-geojson`);
 
   const geoJSON = await response.json();
 
