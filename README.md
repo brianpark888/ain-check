@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+AIN Neighborhood Change Checker
 
-## Getting Started
+Overview
 
-First, run the development server:
+The AIN Neighborhood Change Checker is a tool designed to process and analyze neighborhood change data based on Assessor's Identification Numbers (AINs) or Federal Information Processing Standards (FIPS) codes. It integrates multiple datasets and APIs to fetch relevant geographic and socioeconomic data efficiently.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Code Architecture
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Frontend: Next.js (React) with server-side rendering (SSR)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Backend: Next.js API Routes for fetching GeoJSON
 
-## Learn More
+Caching: In-memory storage for optimized GeoJSON retrieval
 
-To learn more about Next.js, take a look at the following resources:
+APIs Used:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+FCC Census Block API for converting lat/lon to FIPS
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+LACounty Open Data for AIN to lat/lon mapping
 
-## Deploy on Vercel
+GeoJSON from the Othering & Belonging Institute for neighborhood change data
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Data Flow
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+User Input
+
+Accepts comma-separated AINs or FIPS codes from a form.
+
+AIN Processing
+
+Queries preprocessed AIN data to get latitude and longitude (proof of concept uses a locally processed CSV subset).
+
+Future improvement: Direct integration with ArcGIS API to avoid local CSV processing.
+
+FIPS Lookup
+
+Calls FCC Census Block API to fetch FIPS codes using latitude and longitude.
+
+Neighborhood Data Retrieval
+
+Uses FIPS codes to search a cached GeoJSON dataset for neighborhood change indicators.
+
+Rendering Results
+
+Displays the retrieved neighborhood change data in a formatted JSON output.
+
+Performance Considerations
+
+Server-Side Rendering (SSR):
+
+GeoJSON data is fetched server-side to improve performance.
+
+Caching:
+
+GeoJSON dataset is cached in memory to reduce API calls and improve load time.
+
+Optimized Queries:
+
+Future improvements include using ArcGIS API for live AIN lookups instead of CSV processing.
+
+Limitations & Future Work
+
+Current Constraints
+
+AIN Data Processing:
+
+Currently using a manually downloaded 3,000-row CSV subset from LACounty Open Data.
+
+Full dataset is 9 million rows, making local processing inefficient.
+
+Future approach: Direct API queries instead of local CSV processing.
+
+API Integration:
+
+ArcGIS API is not yet integrated due to time constraints.
+
+Future work: Fully integrate ArcGIS API for live AIN queries.
+
+Planned Enhancements
+
+Replace CSV with ArcGIS API queries to dynamically fetch AIN data.
+
+Optimize caching mechanisms for better performance.
+
+Enhance UI/UX for a better visualization of neighborhood change data.
+
+Database integration to allow for structured queries and historical comparisons.
